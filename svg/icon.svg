@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="112mm" height="112mm" viewBox="0 0 112 112" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(1,11)">
+<rect width="100" height="68" ry="4.6757" fill="#f8f3f3"/>
+<rect x=".5" y="68" width="99" height="11" ry="0" fill="#84dbff" style="paint-order:markers fill stroke"/>
+<rect width="100" height="80" ry="4.6757" fill="none" stroke="#00a0df" stroke-width="2"/>
+<rect x=".5" y="68" width="99" height=".21239" ry="0" fill="none" stroke="#00a0df" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5667" style="paint-order:markers fill stroke"/>
+<rect x="6" y="72" width="88" height="3.7418" ry="1.8041" fill="#f9dd9d" stroke="#00a0df" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="paint-order:markers fill stroke"/>
+<g transform="translate(10,10)">
+<rect width="100" height="68" ry="4.6757" fill="#f8f3f3"/>
+<rect x=".5" y="68" width="99" height="11" ry="0" fill="#84dbff" style="paint-order:markers fill stroke"/>
+<rect width="100" height="80" ry="4.6757" fill="none" stroke="#00a0df" stroke-width="2"/>
+<rect x=".5" y="68" width="99" height=".21239" ry="0" fill="none" stroke="#00a0df" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5667" style="paint-order:markers fill stroke"/>
+<rect x="6" y="72" width="88" height="3.7418" ry="1.8041" fill="#f9dd9d" stroke="#00a0df" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="paint-order:markers fill stroke"/>
+<circle cx="16" cy="74" r="3.675" fill="#fff" stroke="#00a0df" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="paint-order:markers fill stroke"/>
+<circle cx="50" cy="34" r="20" fill="#f9a287" stroke="#00a0df" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="paint-order:markers fill stroke"/>
+<path d="m46 29 10 6-10 6z" fill="#f8f3f3" stroke="#00a0df" stroke-linejoin="round" stroke-width="2"/>
+</g>
+</g>
+</svg>
