@@ -2,7 +2,7 @@ import * as React from "react";
 
 function SvgIcon(props) {
     return (
-        <svg width="112mm" height="112mm" viewBox="0 0 112 112" {...props}>
+        <svg width="1em" height="1em" viewBox="0 0 112 112" {...props}>
             <g transform="translate(1 11)">
                 <rect width={100} height={68} ry={4.676} fill="#f8f3f3" />
                 <rect x={0.5} y={68} width={99} height={11} ry={0} fill="#84dbff" paintOrder="markers fill stroke" />

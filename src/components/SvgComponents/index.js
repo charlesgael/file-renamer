@@ -1,1 +1,5 @@
+export { default as Duster } from './Duster'
+export { default as Folder } from './Folder'
 export { default as Icon } from './Icon'
+export { default as Match } from './Match'
+export { default as Rename } from './Rename'
