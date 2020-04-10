@@ -34,7 +34,8 @@ const tmdbMovie: Api = {
         const { data } = await axios.get<ImdbDetailsResponse>(`/movie/${id}?${API_KEY}`);
         const [resActors, resCollection] = await Promise.all([
             axios.get<ImdbCreditsResponse>(`/movie/${id}/credits?${API_KEY}`),
-            data.belongs_to_collection && axios.get<ImdbCollectionResponse>(`/collection/${data.belongs_to_collection.id}?${API_KEY}`),
+            data.belongs_to_collection &&
+                axios.get<ImdbCollectionResponse>(`/collection/${data.belongs_to_collection.id}?${API_KEY}`),
         ]);
         const actors = resActors.data;
         const collection = resCollection?.data;
@@ -49,7 +50,9 @@ const tmdbMovie: Api = {
             d: data.release_date,
             actors: actors.cast.map((it) => it.name),
             n: data.title,
-            ci: data.belongs_to_collection ? collection?.parts.map((col) => col.id).indexOf(data.belongs_to_collection?.id) : undefined,
+            ci: data.belongs_to_collection
+                ? collection?.parts.map((col) => col.id).indexOf(data.belongs_to_collection?.id)
+                : undefined,
             type: "Movie",
             y: new Date(data.release_date).getFullYear(),
         };

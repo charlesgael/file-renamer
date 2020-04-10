@@ -1,4 +1,14 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, List, makeStyles, MenuItem, Paper } from "@material-ui/core";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    List,
+    makeStyles,
+    MenuItem,
+    Paper,
+} from "@material-ui/core";
 import cx from "classnames";
 import React, { FC, useState } from "react";
 import Media, { MediaProps } from "../../../rename-api/Media";
@@ -34,13 +44,17 @@ const PopinNotSure: FC<{
     format?: string;
     onOptionChosen: (resultId: number) => void;
 }> = ({ input, options, format, onOptionChosen }) => {
+    // hooks
     const classes = useStyles();
     const [selected, setSelected] = useState(-1);
 
+    // listeners
     const skip = () => onOptionChosen(-1);
     const confirm = () => onOptionChosen(selected);
+    const selectConfirm = (idx: number) => () => onOptionChosen(idx);
     const select = (idx: number) => () => setSelected(idx);
 
+    //component
     return (
         <Dialog open={true} maxWidth="sm" fullWidth>
             <DialogTitle>Identification failed</DialogTitle>
@@ -53,7 +67,12 @@ const PopinNotSure: FC<{
                 <Paper>
                     <List dense disablePadding className={classes.list}>
                         {options.map((it, i) => (
-                            <MenuItem key={`select-${i}`} onClick={select(i)} selected={i === selected}>
+                            <MenuItem
+                                key={`select-${i}`}
+                                onClick={select(i)}
+                                selected={i === selected}
+                                onDoubleClick={selectConfirm(i)}
+                            >
                                 {new Media(it).writeAs(format!)}
                             </MenuItem>
                         ))}

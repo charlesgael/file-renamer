@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RenameRoute: FC = () => {
-    // Hooks
+    // hooks
     const classes = useStyles();
     const {
         fileList,
@@ -106,38 +106,36 @@ const RenameRoute: FC = () => {
         setSelectedFile,
         searchMedia,
     } = useFileState();
-
-    const onDrop = (files: File[]) => {
+    const { rootProps } = useCustomDropzone((files) => {
         const myFiles: MyFile[] = files
             .map(MyFile.fromDom) // (MyFile | undefined)[]
             .filter((it) => it !== undefined) as MyFile[]; // MyFile[]
         addFiles(myFiles);
-    };
+    });
+    const history = useHistory();
+    const formats = new FormatsSelector(formatsStore.useState());
 
-    const { rootProps } = useCustomDropzone(onDrop);
+    // variables
+    const notSureIdx = fileList.findIndex((it) => it.search?.type === "NOT_SURE");
+    const notSure = fileList[notSureIdx];
+
+    // listeners
     const selectFile = (idx: number) => () => setSelectedFile(idx);
     const removeSelected = () => removeFile(selectedFile);
-
-    const history = useHistory();
     const closeFormat = () => history.push("/rename");
-
-    const formats = new FormatsSelector(formatsStore.useState());
     const onApiSelected = (api: Api) => searchMedia(api);
-
-    const notSureIdx = fileList.findIndex((it) => it.search?.notSure !== undefined);
-    const notSure = fileList[notSureIdx];
     const confirmNotSure = (resultId: number) => {
         const file = fileList[notSureIdx];
         const search = file.search!;
-        if (resultId >= 0) {
-            const selected = search.notSure?.[resultId];
+        if (search.type === "NOT_SURE" && resultId >= 0) {
+            const selected = search.results[resultId];
             if (selected) {
                 replaceFile(notSureIdx, {
                     in: file.in,
                     search: {
                         mode: search.mode,
+                        type: "RESULT",
                         result: selected,
-                        notSure: undefined,
                     },
                 });
             }
@@ -148,7 +146,7 @@ const RenameRoute: FC = () => {
         }
     };
     const transformedFile = (it: typeof fileList[0]) => {
-        if (it.search && it.search.result) {
+        if (it.search && it.search.type === "RESULT") {
             const f = formats.getFormat(it.search.mode);
             if (f) {
                 return it.in.cd(new Media(it.search.result).writeAs(f));
@@ -156,11 +154,10 @@ const RenameRoute: FC = () => {
         }
         return;
     };
-
     const execListener = (copy?: boolean) => () => {
         Promise.allSettled(
             fileList.map(async (it, idx) => {
-                if (it.search && it.search.result) {
+                if (it.search && it.search.type === "RESULT") {
                     const f = formats.getFormat(it.search.mode);
                     if (f) {
                         const destf = it.in.cd(new Media(it.search.result).writeAs(f));
@@ -197,8 +194,12 @@ const RenameRoute: FC = () => {
     // Component
     return (
         <>
-            {notSureIdx >= 0 && (
-                <PopinNotSure input={notSure.in.filename} options={notSure.search!.notSure!} onOptionChosen={confirmNotSure} />
+            {notSure?.search?.type === "NOT_SURE" && (
+                <PopinNotSure
+                    input={notSure.in.filename}
+                    options={notSure.search.results}
+                    onOptionChosen={confirmNotSure}
+                />
             )}
             <Route path="/rename/format/:key">
                 <PopinFormat onClose={closeFormat} />

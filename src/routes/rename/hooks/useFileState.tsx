@@ -9,13 +9,13 @@ interface Search {
 }
 
 interface SearchNotSure extends Search {
-    result: undefined;
-    notSure: MediaProps[];
+    type: "NOT_SURE";
+    results: MediaProps[];
 }
 
 interface SearchResults extends Search {
+    type: "RESULT";
     result: MediaProps;
-    notSure: undefined;
 }
 
 interface State {
@@ -62,8 +62,8 @@ export default function useFileState() {
                                 in: input,
                                 search: {
                                     mode,
+                                    type: "RESULT",
                                     result: results[0],
-                                    notSure: undefined,
                                 },
                             };
                         }
@@ -72,8 +72,8 @@ export default function useFileState() {
                             in: input,
                             search: {
                                 mode,
-                                result: undefined,
-                                notSure: results,
+                                type: "NOT_SURE",
+                                results,
                             },
                         };
                     }

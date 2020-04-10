@@ -33,8 +33,10 @@ const FileMenuItem: FC<{
     onClick: MouseEventHandler<HTMLLIElement>;
     selected?: boolean;
 }> = ({ file, onClick, selected }) => {
+    // hooks
     const classes = useStyles();
 
+    // component
     if (!file) return <ListItem />;
 
     return (

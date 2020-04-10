@@ -7,6 +7,7 @@ import { MyFile } from "../MyFile";
 const AddButton: FC<{
     addFiles: (files: MyFile[]) => void;
 }> = ({ addFiles }) => {
+    // listeners
     const openFile = () => {
         const selection = api.dialog.showOpenDialogSync({
             filters: [
@@ -44,6 +45,8 @@ const AddButton: FC<{
             addFiles(myFiles);
         }
     };
+
+    // component
     return (
         <Button size="small" startIcon={<Folder />} onClick={openFile}>
             Add

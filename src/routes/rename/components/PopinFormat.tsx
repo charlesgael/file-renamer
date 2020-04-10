@@ -1,4 +1,14 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, makeStyles, Paper, TextField } from "@material-ui/core";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    IconButton,
+    makeStyles,
+    Paper,
+    TextField,
+} from "@material-ui/core";
 import cx from "classnames";
 import React, { ChangeEvent, FC, useState } from "react";
 import { MdClose } from "react-icons/md";
@@ -46,7 +56,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const useTextInput = (value?: string): [string, (value: string) => void, React.ChangeEventHandler<HTMLInputElement>] => {
+const useTextInput = (
+    value?: string
+): [string, (value: string) => void, React.ChangeEventHandler<HTMLInputElement>] => {
     const [format, setFormat] = useState(value || "");
 
     const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -64,12 +76,14 @@ const PopinFormat: FC<{
     const {
         params: { key },
     } = useRouteMatch();
-
-    const mode = modes.get(key);
     const formats = new FormatsSelector(formatsStore.useState());
     const [format, setFormat, formatChange] = useTextInput(formats.getFormat(key));
-    const changeFormat = (f: string) => () => setFormat(f);
 
+    // variables
+    const mode = modes.get(key);
+
+    // listeners
+    const changeFormat = (f: string) => () => setFormat(f);
     const submit = () => {
         if (format.length > 0) {
             formatsStore.setFormat(key, format);

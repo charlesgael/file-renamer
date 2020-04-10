@@ -12,9 +12,10 @@ const MatchButton: FC<{
     mini?: boolean;
     onApiSelected: (format: Api) => void;
 }> = ({ mini, onApiSelected }) => {
+    // hooks
     const history = useHistory();
-    const editFormat = (key: string) => () => history.push(`/rename/format/${key}`);
 
+    // variables
     const menus = renameApi.values().reduce<{ [k: string]: Api[] }>(
         (acc, value) => ({
             ...acc,
@@ -22,8 +23,12 @@ const MatchButton: FC<{
         }),
         {}
     );
+
+    // listeners
+    const editFormat = (key: string) => () => history.push(`/rename/format/${key}`);
     const formatSelected = (format: Api) => () => onApiSelected(format);
 
+    // component
     return (
         <Dropdown
             menu={
@@ -33,7 +38,10 @@ const MatchButton: FC<{
                             ...acc,
                             <title key={`mode-title-${key}`}>{modes.get(key)?.name}</title>,
                             ...entries.map((entry, i) => (
-                                <MenuItem key={`mode-match-${key}-${entry.name.toLowerCase()}`} onClick={formatSelected(entry)}>
+                                <MenuItem
+                                    key={`mode-match-${key}-${entry.name.toLowerCase()}`}
+                                    onClick={formatSelected(entry)}
+                                >
                                     {entry.name}
                                 </MenuItem>
                             )),
